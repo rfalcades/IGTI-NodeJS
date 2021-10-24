@@ -1,5 +1,5 @@
 {
-  "nextId": 4,
+  "nextId": 5,
   "accounts": [
     {
       "name": "Ricardo Falcades",
@@ -9,7 +9,12 @@
     {
       "id": 3,
       "name": "Mike Tyson",
-      "balance": 5000
+      "balance": 50004
+    },
+    {
+      "id": 4,
+      "name": "Charles Wats",
+      "balance": 500
     }
   ]
 }
