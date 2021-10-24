@@ -3,6 +3,11 @@ import winston from "winston";
 import accountsRouter from "./routes/account.js";
 import { promises as fs } from "fs";
 import cors from "cors";
+import swaggerUI from "swagger-ui-express";
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const swaggerFile = require("./swagger_output.json");
 
 const { readFile, writeFile } = fs;
 
@@ -27,6 +32,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use("/doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 app.use("/account", accountsRouter);
 
 app.listen(3000, async () => {
