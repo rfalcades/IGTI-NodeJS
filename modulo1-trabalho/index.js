@@ -4,11 +4,11 @@ var data;
 
 await init();
 
-// console.log(await GetArrayMarcas());
+console.log("Marca mais modelos :" + (await GetMarcaMaisModelos()));
+console.log("5 Marcas mais modelos :" + (await GetMarcaMaisModelos(5)));
 
-console.log(await GetMarcaMaisModelos());
-// console.log(await GetMarcaMenosModelos());
-// console.log(await GetMarcaMaisModelosN(5));
+console.log("5 Marcas menos modelos :" + (await GetMarcaMenosModelos(5)));
+console.log("Marca mais modelos :" + (await GetMarcaMenosModelos()));
 
 async function init() {
     try {
@@ -18,101 +18,57 @@ async function init() {
     }
 }
 
-// 1 Criar uma função que retorne o nome da marca que mais possui modelos.
-async function GetArrayMarcas() {
+async function GetArrayMarcas(asc) {
+    if (!asc) asc = 1;
+
     let result = {
         marcas: [],
     };
 
     data.forEach((element) => {
         result.marcas.push({
-            marca: element.brand,
             qtd: element.models.length,
+            marca: element.brand,
         });
     });
 
     result.marcas.sort((e1, e2) => {
-        if (e1.qtd > e2.qtd) {
-            return -1;
-        }
-        if (e1.qtd < e2.qtd) {
-            return 1;
-        }
+        if (e1.qtd > e2.qtd) return 1 * asc;
+        if (e1.qtd < e2.qtd) return -1 * asc;
+        if (e1.marca < e2.marca) return -1;
+        if (e1.marca > e2.marca) return 1;
+
         return 0;
     });
 
     return result;
 }
 
-async function GetArrayOrdenado() {
-    let result = await GetArrayMarcas();
+async function GetMarcaMaisModelos(qtde) {
+    if (!qtde) qtde = 1;
 
-    const map = new Map();
+    let r = await GetArrayMarcas(-1);
+    let result = [];
 
-    result.marcas.forEach((e) => {
-        let key = e.qtd;
-
-        if (!map.has(key)) map.set(key, []);
-        map.get(key).push(e.marca);
+    r.marcas.slice(0, qtde).forEach((e) => {
+        // result.push({ marca: e.marca, qtd: e.qtd });
+        // result.push(`${e.marca} - ${e.qtd}`);
+        result.push(`${e.marca} - ${e.qtd}`);
     });
 
-    let r2 = {
-        result: [],
-    };
-
-    map.forEach((value, key) => {
-        r2.result.push({
-            qtd: key,
-            marcas: value,
-        });
-    });
-
-    r2.result.sort((e1, e2) => {
-        if (e1.qtd > e2.qtd) {
-            return -1;
-        }
-        if (e1.qtd < e2.qtd) {
-            return 1;
-        }
-        return 0;
-    });
-
-    return r2;
+    return result;
 }
 
-async function GetMarcaMaisModelos() {
+async function GetMarcaMenosModelos(qtde) {
+    if (!qtde) qtde = 1;
+
     let r = await GetArrayMarcas();
     let result = [];
 
-    r.marcas.forEach((e) => {
-        let i = result.find((r) => r.qtd === e.qtd);
-
-        if (!i) {
-            i = { qtd: e.qtd, marca: [] };
-            result.push(i);
-        }
-
-        i.marca.push(e.marca);
-
-        console.log(i);
+    r.marcas.slice(0, qtde).forEach((e) => {
+        //result.push(e.marca);
+        result.push(`${e.marca} - ${e.qtd}`);
     });
 
-    //  console.log(result);
-}
-
-async function GetMarcaMenosModelos() {
-    let r = await GetArrayOrdenado();
-    return r.result[r.result.length - 1].marcas;
-}
-
-async function GetMarcaMaisModelosN(qtd) {
-    let r = await GetArrayOrdenado();
-
-    let r2 = [];
-
-    r.result.slice(0, qtd).forEach((e) => {
-        r2.push(e.marcas);
-    });
-
-    return r2;
+    return result;
 }
