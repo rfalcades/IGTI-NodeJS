@@ -2,7 +2,7 @@ import swaggerAutogen from "swagger-autogen";
 
 const doc = {
     info: {
-        title: "My Bank API",
+        title: "My  API",
         description: "Description",
     },
     host: "localhost:3000",
