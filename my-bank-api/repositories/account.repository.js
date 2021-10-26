@@ -61,22 +61,6 @@ async function updateAccount(account) {
     return data.accounts[index];
 }
 
-// async function updateBalance(account) {
-//     const acc = await AccountRepository;
-
-//     const data = JSON.parse(await readFile(global.fileName));
-//     const index = data.accounts.findIndex((a) => a.id === account.id);
-
-//     if (index === -1) {
-//         throw new Error("Registro não encontrado!");
-//     }
-
-//     data.accounts[index].balance = account.balance;
-//     await writeFile(global.fileName, JSON.stringify(data, null, 2));
-
-//     return data.accounts[index];
-// }
-
 export default {
     getAccounts,
     getAccount,
