@@ -84,6 +84,17 @@ async function updateEntregue(req, res, next) {
     }
 }
 
+async function somarPedidosPorCliente(req, res, next) {
+    try {
+        const cliente = req.params.nomeCliente;
+        const resultSoma = await DeliveryService.somarPedidos(cliente);
+        res.send(`Valor total pedidos cliente ${cliente} : ${resultSoma}`);
+        logger.info("GET /somarPedidosPorCliente");
+    } catch (error) {
+        next(error);
+    }
+}
+
 export default {
     createPedido,
     getPedidos,
@@ -91,4 +102,5 @@ export default {
     deletePedido,
     updatePedido,
     updateEntregue,
+    somarPedidosPorCliente,
 };

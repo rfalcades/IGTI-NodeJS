@@ -24,6 +24,19 @@ async function updateEntregue(id, entregue) {
     return await DeliveryRepository.updateEntregue(id, entregue);
 }
 
+async function somarPedidos(nomeCliente) {
+    const pedidos = await DeliveryRepository.getPedidos();
+
+    let valorTotalPedidos = 0;
+
+    pedidos.forEach((p) => {
+        if (p.cliente === nomeCliente && p.entregue)
+            valorTotalPedidos += p.valor;
+    });
+
+    return valorTotalPedidos;
+}
+
 export default {
     createPedido,
     getPedidos,
@@ -31,4 +44,5 @@ export default {
     deletePedido,
     updatePedido,
     updateEntregue,
+    somarPedidos,
 };
