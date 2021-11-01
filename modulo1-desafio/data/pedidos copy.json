@@ -1,5 +1,5 @@
 {
-  "nextId": 503,
+  "nextId": 501,
   "pedidos": [
     {
       "id": 1,
@@ -3993,12 +3993,6 @@
       "valor": 32,
       "entregue": true,
       "timestamp": "2021-05-02T19:48:09.767Z"
-    },
-    {
-      "id": 502,
-      "valor": 50,
-      "entregue": true,
-      "Timestamp": "2021-11-01T11:56:42.762Z"
     }
   ]
 }

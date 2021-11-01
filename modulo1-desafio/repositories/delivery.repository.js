@@ -9,7 +9,7 @@ async function getPedidos() {
 
 async function getPedido(id) {
     const pedidos = await getPedidos();
-    const pedido = accounts.find((p) => p.id === parseInt(id));
+    const pedido = pedidos.find((p) => p.id === parseInt(id));
 
     if (pedido) {
         return pedido;
@@ -18,7 +18,7 @@ async function getPedido(id) {
     throw new Error("Registro não encontrado!");
 }
 
-async function insertPedido(pedidos) {
+async function insertPedido(pedido) {
     const data = JSON.parse(await readFile(global.fileName));
 
     pedido = {
@@ -63,7 +63,7 @@ async function updatePedido(pedido) {
     return data.pedidos[index];
 }
 
-async function updateEntrega(id, entregue) {
+async function updateEntregue(id, entregue) {
     const data = JSON.parse(await readFile(global.fileName));
     const index = data.pedidos.findIndex((p) => p.id === parseInt(id));
 
@@ -84,5 +84,5 @@ export default {
     insertPedido,
     deletePedido,
     updatePedido,
-    updateEntrega,
+    updateEntregue,
 };
