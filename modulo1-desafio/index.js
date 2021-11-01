@@ -15,8 +15,8 @@ import { promises as fs } from "fs";
 
 const { readFile, writeFile } = fs;
 
-// global.fileName = "./data/pedidos.json";
-global.fileName = "./modulo1-desafio/data/pedidos.json";
+global.fileName = "./data/pedidos.json";
+//global.fileName = "./modulo1-desafio/data/pedidos.json";
 
 const { combine, timestamp, label, printf } = winston.format;
 

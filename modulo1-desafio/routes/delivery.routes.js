@@ -3,6 +3,7 @@ import PedidoController from "../controllers/delivery.controller.js";
 
 const router = express.Router();
 
+router.get("/produtosMaisVendidos", PedidoController.produtosMaisVendidos);
 router.post("/", PedidoController.createPedido);
 router.get("/", PedidoController.getPedidos);
 router.get("/:id", PedidoController.getPedido);
@@ -12,6 +13,11 @@ router.patch("/updateEntregue", PedidoController.updateEntregue);
 router.get(
     "/totalCliente/:nomeCliente",
     PedidoController.somarPedidosPorCliente
+);
+
+router.get(
+    "/totalProduto/:nomeProduto",
+    PedidoController.somarPedidosPorProduto
 );
 
 router.use((err, req, res, next) => {

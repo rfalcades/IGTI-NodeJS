@@ -95,6 +95,27 @@ async function somarPedidosPorCliente(req, res, next) {
     }
 }
 
+async function somarPedidosPorProduto(req, res, next) {
+    try {
+        const produto = req.params.nomeProduto;
+        const resultSoma = await DeliveryService.somarPedidosProduto(produto);
+        res.send(`Valor total pedidos produto ${produto} : ${resultSoma}`);
+        logger.info("GET /somarPedidosPorProduto");
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function produtosMaisVendidos(req, res, next) {
+    try {
+        const result = await DeliveryService.produtosMaisVendidos();
+        res.send(`Ranking produtos: ${result}`);
+        logger.info("GET /produtosMaisVendidos");
+    } catch (error) {
+        next(error);
+    }
+}
+
 export default {
     createPedido,
     getPedidos,
@@ -103,4 +124,6 @@ export default {
     updatePedido,
     updateEntregue,
     somarPedidosPorCliente,
+    somarPedidosPorProduto,
+    produtosMaisVendidos,
 };
