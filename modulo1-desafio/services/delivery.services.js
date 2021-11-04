@@ -37,6 +37,17 @@ async function somarPedidos(nomeCliente) {
     return valorTotalPedidos;
 }
 
+async function getTotalCliente(nomeCliente) {
+    const pedidos = await DeliveryRepository.getPedidos();
+
+    const total = pedidos
+        .filter((p) => p.cliente === nomeCliente && p.entregue)
+        .map((p) => p.valor)
+        .reduce((prev, curr) => prev + curr, 0);
+
+    return total;
+}
+
 async function somarPedidosProduto(nomeProduto) {
     const pedidos = await DeliveryRepository.getPedidos();
 
@@ -90,7 +101,7 @@ export default {
     deletePedido,
     updatePedido,
     updateEntregue,
-    somarPedidos,
+    getTotalCliente,
     somarPedidosProduto,
     produtosMaisVendidos,
 };
